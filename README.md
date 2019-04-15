@@ -1,3 +1,8 @@
+# Resourceフォルダ
+gameprogcppのコード、変更はしてはならない
+# WorkSpaceフォルダ
+gameprogcppのコードと本をもとに実際作業するファイルが入っている
+追加機能・課題などの編集もこのフォルダ
 # Game Programming in C++ Code
 This repository contains the source code for *Game Programming in C++* by Sanjay Madhav.
 
