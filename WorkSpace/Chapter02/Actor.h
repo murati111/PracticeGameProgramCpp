@@ -12,6 +12,39 @@
 class Actor
 {
 public:
+	//アクターの状態管理用
+	enum State
+	{
+		EActive,
+		EPaused,
+		EDead
+	};
+	//コンストラクターとデストラクター
+	Actor(class Game* game);
+	virtual ~Actor();
+	//ゲームから呼び出される更新関数（オーバライド不可）
+	void UpdateComponents(float deltaTime);
+	//アクター独自の更新処理（オーバライド可能）
+	virtual void UpdateActor(float deltaTime);
+
+	//ゲッター/セッター
+
+	//コンポーネントの追加/削除
+	void AddComponent(class Component* component);
+	void RemoveComponent(class Component* component);
+
+private:
+	//アクターの状態
+	State mState;
+	//座標変換
+	Vector2 mPosition; //アクターの中心位置
+	float mScale; //アクターのスケール（1.0fが100%）
+	float mRotation; //回転の角度（ラジアン）
+
+	//アクターが持つコンポーネント
+	std::vector<class Component*> mComponents;
+	class Game* mGame;
+/*public:
 	enum State
 	{
 		EActive,
@@ -57,4 +90,5 @@ private:
 
 	std::vector<class Component*> mComponents;
 	class Game* mGame;
+	*/
 };
