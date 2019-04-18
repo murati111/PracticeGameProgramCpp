@@ -93,7 +93,7 @@ void Game::ProcessInput()
 
 void Game::UpdateGame()
 {
-	// Compute delta time
+	// デルタタイムを計算
 	// Wait until 16ms has elapsed since last frame
 	while (!SDL_TICKS_PASSED(SDL_GetTicks(), mTicksCount + 16))
 		;
@@ -105,7 +105,7 @@ void Game::UpdateGame()
 	}
 	mTicksCount = SDL_GetTicks();
 
-	// Update all actors
+	// すべてのアクターを更新
 	mUpdatingActors = true;
 	for (auto actor : mActors)
 	{
@@ -113,14 +113,14 @@ void Game::UpdateGame()
 	}
 	mUpdatingActors = false;
 
-	// Move any pending actors to mActors
+	// 待ちになっていたアクターをmActorsに移動
 	for (auto pending : mPendingActors)
 	{
 		mActors.emplace_back(pending);
 	}
 	mPendingActors.clear();
 
-	// Add any dead actors to a temp vector
+	// 死んだアクターを一時配列に追加
 	std::vector<Actor*> deadActors;
 	for (auto actor : mActors)
 	{
@@ -130,7 +130,7 @@ void Game::UpdateGame()
 		}
 	}
 
-	// Delete dead actors (which removes them from mActors)
+	// 死んだアクターを消す（mActorsから削除される）
 	for (auto actor : deadActors)
 	{
 		delete actor;
@@ -184,7 +184,7 @@ void Game::LoadData()
 void Game::UnloadData()
 {
 	// Delete actors
-	// Because ~Actor calls RemoveActor, have to use a different style loop
+	//~ActorではRemoveActorが呼び出されるので、別の種類のループを使う
 	while (!mActors.empty())
 	{
 		delete mActors.back();
@@ -242,7 +242,7 @@ void Game::Shutdown()
 
 void Game::AddActor(Actor* actor)
 {
-	// If we're updating actors, need to add to pending
+	// アクターの更新中なら待ちに追加
 	if (mUpdatingActors)
 	{
 		mPendingActors.emplace_back(actor);
